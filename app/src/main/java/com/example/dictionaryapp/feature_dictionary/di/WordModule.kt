@@ -3,6 +3,7 @@ package com.example.dictionaryapp.feature_dictionary.di
 import android.app.Application
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.dictionaryapp.feature_dictionary.data.local.Converts
 import com.example.dictionaryapp.feature_dictionary.data.local.WordInfoDao
 import com.example.dictionaryapp.feature_dictionary.data.local.WordInfoDatabase
 import com.example.dictionaryapp.feature_dictionary.data.remote.DictionaryApi
@@ -46,7 +47,7 @@ object WordModule {
             app,
             WordInfoDatabase::class.java,
             "word_info_db"
-        ).addTypeConverter(GsonParser(Gson())) /**這邊要加入自定義的converter*/
+        ).addTypeConverter(Converts(GsonParser(Gson()))) /**這邊要加入自定義的converter*/
             .build()
     }
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.dictionaryapp.core.util.Resource
 import com.example.dictionaryapp.feature_dictionary.domain.use_case.GetWordInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -42,7 +43,7 @@ class WordInfoViewModel @Inject constructor(
     fun onSearch(query: String) {
         _searchQuery.value = query
         searchJob?.cancel()
-        searchJob = viewModelScope.launch {
+        searchJob = viewModelScope.launch (Dispatchers.IO){
             delay(500L)
             getWordInfo(query)
                 .onEach { result ->
